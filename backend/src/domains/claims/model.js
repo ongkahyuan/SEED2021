@@ -1,10 +1,32 @@
 const pool = require("../../config/db");
 
-const createClaims = async (claimsInfo) => {
-  const connection = await pool.getConnection();
-  const [rows, fields] = await connection.query();
-  connection.release();
-  return { rows, fields };
+const createClaims = async (claimsInfo,maxClaimValue) => {
+  try{
+    const connection = await pool.getConnection();
+    const [rows, fields] = await connection.query(` INSERT INTO InsuranceData.InsuranceClaims (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, 
+    PreviousClaimID, Status, LastEditedClaimDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,[maxClaimValue,claimsInfo['insuranceID'],
+    claimsInfo['firstName'],claimsInfo['lastName'],claimsInfo['expenseDate'],claimsInfo['claimAmt'],claimsInfo['purpose'],claimsInfo['followUp'],claimsInfo['previousClaim'],
+    claimsInfo['status'],claimsInfo['lastEditedClaimDate']]);
+    connection.release();
+    return { rows, fields };
+  }
+  catch(error){
+    throw error;
+  }
+
+};
+
+const getLargestClaim = async () => {
+  try{
+    const connection = await pool.getConnection();
+    const [rows, fields] = await connection.query(` SELECT MAX(ClaimID) AS LargestClaimID FROM InsuranceClaims;`);
+    connection.release();
+    return { rows, fields };
+  }
+  catch(error){
+    throw error;
+  }
+
 };
 
 const getGeneralClaims = async (employeeId) => {
@@ -56,4 +78,5 @@ module.exports = {
   getSpecificClaims,
   updateClaims,
   deleteClaims,
+  getLargestClaim
 };
