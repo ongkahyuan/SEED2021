@@ -1,12 +1,17 @@
 const { Router } = require("express");
 
-const { getUserClaims } = require("./controller");
+const {
+  createUserClaims,
+  getUserClaims,
+  updateUserClaim,
+  deleteUserClaims,
+} = require("./controller");
 
 const router = Router();
 
-// router.post("/claims", null);
+router.post("/claims", createUserClaims);
 router.get("/claims", getUserClaims);
-// router.patch("/claims", null);
-// router.delete("/claims", null);
+router.patch("/claims", updateUserClaim);
+router.delete("/claims", deleteUserClaims);
 
 module.exports = router;
