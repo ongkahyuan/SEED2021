@@ -10,10 +10,10 @@ const {
 
 const router = Router();
 
-router.post("/claims", createUserClaims);
-router.get("/claims", getUserGeneralClaims);
-router.get("/claims/:claimId", getUserSpecificClaims);
-router.patch("/claims", updateUserClaim);
-router.delete("/claims", deleteUserClaims);
+router.post("/", createUserClaims);
+router.get("/", getUserGeneralClaims);
+router.get("/:claimId", getUserSpecificClaims);
+router.patch("/", updateUserClaim);
+router.delete("/", deleteUserClaims);
 
 module.exports = router;

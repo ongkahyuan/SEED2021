@@ -28,7 +28,7 @@ const createUserClaims = async (req, res) => {
 
 const getUserGeneralClaims = async (req, res) => {
   try {
-    const employeeId = "58001001"; // Get employeeId from req
+    const employeeId = req.user.EmployeeID;
     const { rows, fields } = await getGeneralClaims(employeeId);
     return res.json({
       message: "Successfully retrieve user claims",
