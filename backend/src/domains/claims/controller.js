@@ -62,8 +62,8 @@ const getUserSpecificClaims = async (req, res) => {
 
 const updateUserClaim = async (req, res) => {
   try {
-    const updateClaimInfo = req.body;
-    const { rows, fields } = await updateClaims(updateClaimInfo);
+    const { claimId, ...updateClaimInfo } = req.body;
+    const { rows, fields } = await updateClaims(claimId, updateClaimInfo);
     return res.json({
       message: "Successfully updated user claims",
       data: rows,
