@@ -79,11 +79,11 @@ const updateUserClaim = async (req, res) => {
 
 const deleteUserClaims = async (req, res) => {
   try {
-    const { claimsId } = req.body;
-    const { rows, fields } = await deleteClaims(claimsId);
+    const { claimId } = req.body;
+    const { rows, fields } = await deleteClaims(claimId);
     return res.json({
       message: "Successfully delete user claims",
-      data: { rows, fields },
+      data: rows,
     });
   } catch (e) {
     res.status(404).json({
