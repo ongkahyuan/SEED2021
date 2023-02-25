@@ -67,7 +67,7 @@ export const Login= () => {
                 </Form.Item>
             </Form>
 
-            <ClaimTable/>
+           
             <PolicyTable/>
             <EditDeleteButton text={"Delete"}/>
             <EditDeleteButton text={"Edit"}/>

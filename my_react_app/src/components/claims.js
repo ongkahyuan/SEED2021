@@ -1,277 +1,76 @@
 import { Table, Space, Popconfirm, Button } from 'antd';
+import { useEffect, useState } from 'react';
+import { getRequestProtected } from '../api/api';
+
 // import {moment} from 'moment';
 
-
-const columns = [
-    {
-        title: 'Claim ID',
-        dataIndex: 'ClaimID',
-        key: 'ClaimID',
-    },
-    ,
-    {
-        title: 'Expense Date',
-        dataIndex: 'ExpenseDate',
-        key: 'ExpenseDate',
-        // render: (ExpenseDate) => moment(ExpenseDate).format('YYYY-MM-DD'),
-    },
-    {
-        title: 'Status',
-        dataIndex: 'Status',
-        key: 'Status',
-        onFilter: (value, record) => record.address.indexOf(value) === 0,
-
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <a> Edit </a>
-                <Popconfirm
-                    title="Are you sure you want to delete this user?"
-                    // onConfirm={() => handleDelete(record)}
-                >
-                    <Button type="link" danger>
-                        Delete
-                    </Button>
-                </Popconfirm>
-            </Space>
-        ),
-    },
-
-];
-
-const data = [
-    {
-        "ClaimID": 2010,
-        "InsuranceID": 1009,
-        "FirstName": "Martin",
-        "LastName": "Ong",
-        "ExpenseDate": "2022-07-14T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Dentist",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2022-07-15T12:22:45+08:00"
-    },
-    {
-        "ClaimID": 2011,
-        "InsuranceID": 1008,
-        "FirstName": "John",
-        "LastName": "Tan",
-        "ExpenseDate": "2022-08-15T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Outpatient Claim",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2022-08-16T19:35:53+08:00"
-    },
-    {
-        "ClaimID": 2012,
-        "InsuranceID": 1005,
-        "FirstName": "Mary",
-        "LastName": "Lee",
-        "ExpenseDate": "2022-08-16T08:00:00+08:00",
-        "Amount": 200.00,
-        "Purpose": "Specialist Visit",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2022-08-17T12:28:46+08:00"
-    },
-    {
-        "ClaimID": 2013,
-        "InsuranceID": 1007,
-        "FirstName": "Mary",
-        "LastName": "Lee",
-        "ExpenseDate": "2022-08-18T08:00:00+08:00",
-        "Amount": 5000.00,
-        "Purpose": "Car Repairs",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2022-08-19T11:16:32+08:00"
-    },
-    {
-        "ClaimID": 2014,
-        "InsuranceID": 1008,
-        "FirstName": "John",
-        "LastName": "Tan",
-        "ExpenseDate": "2022-08-20T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Outpatient Claim",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2022-08-29T16:42:51+08:00"
-    },
-    {
-        "ClaimID": 2015,
-        "InsuranceID": 1009,
-        "FirstName": "Martin",
-        "LastName": "Ong",
-        "ExpenseDate": "2022-09-02T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Outpatient Claim",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Rejected",
-        "LastEditedClaimDate": "2022-09-03T10:30:00+08:00"
-    },
-    {
-        "ClaimID": 2016,
-        "InsuranceID": 1008,
-        "FirstName": "John",
-        "LastName": "Tan",
-        "ExpenseDate": "2022-09-04T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Outpatient Claim",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Rejected",
-        "LastEditedClaimDate": "2022-09-05T13:25:29+08:00"
-    },
-    {
-        "ClaimID": 2017,
-        "InsuranceID": 1005,
-        "FirstName": "Mary",
-        "LastName": "Lee",
-        "ExpenseDate": "2022-10-08T08:00:00+08:00",
-        "Amount": 200.00,
-        "Purpose": "Specialist Visit Follow Up",
-        "FollowUp": 1,
-        "PreviousClaimID": 2013,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2022-10-09T13:08:24+08:00"
-    },
-    {
-        "ClaimID": 2018,
-        "InsuranceID": 1011,
-        "FirstName": "John",
-        "LastName": "Tan",
-        "ExpenseDate": "2022-10-10T08:00:00+08:00",
-        "Amount": 3000.00,
-        "Purpose": "Aircon Repair",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Pending",
-        "LastEditedClaimDate": "2022-10-15T17:45:52+08:00"
-    },
-    {
-        "ClaimID": 2019,
-        "InsuranceID": 1009,
-        "FirstName": "Martin",
-        "LastName": "Ong",
-        "ExpenseDate": "2022-10-26T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Dentist",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2022-10-28T13:08:24+08:00"
-    },
-    {
-        "ClaimID": 2020,
-        "InsuranceID": 1009,
-        "FirstName": "Martin",
-        "LastName": "Ong",
-        "ExpenseDate": "2023-01-03T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Outpatient Claim",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2023-01-05T12:53:04+08:00"
-    },
-    {
-        "ClaimID": 2021,
-        "InsuranceID": 1011,
-        "FirstName": "John",
-        "LastName": "Tan",
-        "ExpenseDate": "2022-12-20T08:00:00+08:00",
-        "Amount": 2000.00,
-        "Purpose": "Engine Repair",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2023-01-06T11:24:32+08:00"
-    },
-    {
-        "ClaimID": 2022,
-        "InsuranceID": 1005,
-        "FirstName": "Mary",
-        "LastName": "Lee",
-        "ExpenseDate": "2023-01-09T08:00:00+08:00",
-        "Amount": 200.00,
-        "Purpose": "Specialist Visit Follow Up",
-        "FollowUp": 1,
-        "PreviousClaimID": 2017,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2023-01-09T17:23:56+08:00"
-    },
-    {
-        "ClaimID": 2023,
-        "InsuranceID": 1016,
-        "FirstName": "Irene",
-        "LastName": "Lim",
-        "ExpenseDate": "2023-02-11T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Overseas Injury",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Approved",
-        "LastEditedClaimDate": "2023-02-16T15:32:24+08:00"
-    },
-    {
-        "ClaimID": 2024,
-        "InsuranceID": 1009,
-        "FirstName": "Martin",
-        "LastName": "Ong",
-        "ExpenseDate": "2023-02-23T08:00:00+08:00",
-        "Amount": 100.00,
-        "Purpose": "Dentist",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Pending",
-        "LastEditedClaimDate": "2023-02-25T17:33:58+08:00"
-    },
-    {
-        "ClaimID": 2027,
-        "InsuranceID": 1016,
-        "FirstName": "Irene",
-        "LastName": "Lim",
-        "ExpenseDate": "2023-02-11T08:00:00+08:00",
-        "Amount": 200.00,
-        "Purpose": "Lost Baggage",
-        "FollowUp": 0,
-        "PreviousClaimID": null,
-        "Status": "Pending",
-        "LastEditedClaimDate": "2023-02-25T17:39:42+08:00"
-    },
-    {
-        "ClaimID": 2028,
-        "ExpenseDate": "2023-02-28T08:00:00+08:00",
-        "Status": "Pending",
-    },
-    {
-        "ClaimID": 2025,
-        "ExpenseDate": "2023-02-28T08:00:00+08:00",
-        "Status": "Pending",
-    },
-    {
-        "ClaimID": 2026,
-        "ExpenseDate": "2023-03-10T08:00:00+08:00",
-        "Status": "Approved",
-    }
-];
-
 export const ClaimTable = () => {
+
+    const [data, setData] = useState([]);
+
+    useEffect(async () => {
+        await getRequestProtected('/claim').then(response => {
+            setData(response.data);
+        })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+
+    const columns = [
+        {
+            title: 'Claim ID',
+            dataIndex: 'ClaimID',
+            key: 'ClaimID',
+        },
+        ,
+        {
+            title: 'Expense Date',
+            dataIndex: 'ExpenseDate',
+            key: 'ExpenseDate',
+            // render: (ExpenseDate) => moment(ExpenseDate).format('YYYY-MM-DD'),
+        },
+        {
+            title: 'Status',
+            dataIndex: 'Status',
+            key: 'Status',
+            onFilter: (value, record) => record.address.indexOf(value) === 0,
+
+        },
+        {
+            title: 'Amount',
+            dataIndex: 'Amount',
+            key: 'Amount',
+        },
+        {
+            title: 'Purpose',
+            dataIndex: 'Purpose',
+            key: 'Purpose',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <a> Edit </a>
+                    <Popconfirm
+                        title="Are you sure you want to delete this user?"
+                    // onConfirm={() => handleDelete(record)}
+                    >
+                        <Button type="link" danger>
+                            Delete
+                        </Button>
+                    </Popconfirm>
+                </Space>
+            ),
+        },
+
+    ];
     return (
-        <Table columns={columns} dataSource={data} style={{margin: '0 auto',
-        padding: '40px',}}/>
+        <Table columns={columns} dataSource={data} style={{
+            margin: '0 auto',
+            padding: '40px',
+        }} />
     );
 };
 
