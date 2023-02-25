@@ -73,10 +73,10 @@ async function checkPolicyAuthorisation(policyID, user) {
 
 async function checkClaimAuthorisation(claimID, user) {
     console.log("ClaimID: ", claimID)
-    const { claim, fields } = await claimModel.getSpecificClaims(claimID)
-    console.log(claim)
-    const insuranceID = claim[0].InsuranceID;
-    const policy = await policyModel.getPoliciesByPolicyID(policyID)
+    const { rows, fields } = await claimModel.getSpecificClaims(claimID)
+    console.log(rows)
+    const insuranceID = rows[0].InsuranceID;
+    const policy = await policyModel.getPoliciesByPolicyID(insuranceID)
     if (policy[0].EmployeeID == user.EmployeeID) {
         return true
     } return false

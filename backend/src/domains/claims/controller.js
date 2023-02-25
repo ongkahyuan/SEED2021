@@ -45,6 +45,8 @@ const getUserGeneralClaims = async (req, res) => {
 };
 
 const getUserSpecificClaims = async (req, res) => {
+  const authorised = await checkClaimAuthorisation(req.params["claimId"], req.user)
+  if (!authorised) { return res.status(403).send('Unauthorised') }
   try {
     const claimId = req.params["claimId"];
     const { rows, fields } = await getSpecificClaims(claimId);
@@ -62,6 +64,9 @@ const getUserSpecificClaims = async (req, res) => {
 };
 
 const updateUserClaim = async (req, res) => {
+  const { claimId } = req.body;
+  const authorised = await checkClaimAuthorisation(claimId, req.user)
+  if (!authorised) { return res.status(403).send('Unauthorised') }
   try {
     const { claimId, ...updateClaimInfo } = req.body;
     const { rows, fields } = await updateClaims(claimId, updateClaimInfo);
@@ -75,10 +80,14 @@ const updateUserClaim = async (req, res) => {
       message: e,
       data: {},
     });
+
   }
 };
 
 const deleteUserClaims = async (req, res) => {
+  const { claimId } = req.body;
+  const authorised = await checkClaimAuthorisation(claimId, req.user)
+  if (!authorised) { return res.status(403).send('Unauthorised') }
   try {
     const { claimId } = req.body;
     const { rows, fields } = await deleteClaims(claimId);
