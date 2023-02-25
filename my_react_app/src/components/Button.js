@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import { DatePicker,Form, Input, Select, Space, Radio, Button as Btn , Checkbox } from 'antd';
-
+const regex = /[^\d]/g;
 
 export const Button = ()=>{
     
@@ -68,6 +68,11 @@ export const Button = ()=>{
       const onOk = (value) => {
         console.log('onOk: ', value);
       };
+
+      const onCheck = (e) => {
+        setFollowUp(true);
+        console.log(followUp)
+      };
     return (
       <div>
       {
@@ -113,9 +118,9 @@ export const Button = ()=>{
                   <DatePicker  onChange={(date, dateString) => setDate(dateString)} onOk={onOk} />
                 </Space>
                 </Form.Item>
-                {/* <Form.Item label="Is this a follow up?" >
-                <Checkbox value={followUp}  onChange={onChange}>Checkbox</Checkbox>
-                </Form.Item> */}
+                <Form.Item label="Is this a follow up?" >
+                <Checkbox value={followUp}  onChange={onCheck}>Checkbox</Checkbox>
+                </Form.Item>
                 {followUp&&
                   <Form.Item label="Previous Claim ID">
                   <Input value ={previousClaimId} tpye="number"placeholder="Previous Claim ID" onChange={(e)=>{setPreviousClaimId(e.target.value)}}/>
