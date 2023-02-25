@@ -36,8 +36,6 @@ export const AddButton = ()=>{
                   <Input value ={reciept} tpye="number"placeholder="Reciept Number" onChange={(e)=>{setReciept(e.target.value)}}/>
                   </Form.Item>
                 </div>
-                
-                
                 <div>
                   <Form.Item label="Claim Amount">
                   <Input value ={claimAmount} tpye="number"placeholder="$" onChange={(e)=>{setClaimAmount(e.target.value)}}/>

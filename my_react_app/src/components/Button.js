@@ -14,7 +14,7 @@ export const Button = ()=>{
     const [claimAmount, setClaimAmount] = useState('')
     const [purpose, setPurpose] = useState('')
     const [date, setDate] = useState('')
-    const [followUp, setFollowUp] = useState(false)
+    const [followUp, setFollowUp] = useState()
     const [previousClaimId, setPreviousClaimId] = useState('')
     const { RangePicker } = DatePicker;
     
@@ -119,7 +119,12 @@ export const Button = ()=>{
                 </Space>
                 </Form.Item>
                 <Form.Item label="Is this a follow up?" >
-                <Checkbox value={followUp}  onChange={onCheck}>Checkbox</Checkbox>
+                <Input 
+                type="checkbox" 
+                checked ={followUp}
+                value={followUp} 
+                onChange={(e)=>{setFollowUp(e.currentTarget.checked)}}
+                />
                 </Form.Item>
                 {followUp&&
                   <Form.Item label="Previous Claim ID">
