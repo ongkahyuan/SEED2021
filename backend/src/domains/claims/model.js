@@ -38,7 +38,7 @@ const updateClaims = async (updateInfo) => {
 const deleteClaims = async (claimId) => {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
-    `DELETE FROM insuranceClaims WHERE insuranceClaims.claimId = "${claimId}`
+    `DELETE FROM insuranceClaims WHERE insuranceClaims.claimId = "${claimId}"`
   );
   connection.release();
   return { rows, fields };
