@@ -32,10 +32,12 @@ const updateClaims = async (claimId, updateClaimInfo) => {
   const connection = await pool.getConnection();
   let updateString = "";
   Object.keys(updateClaimInfo).forEach((key) => {
-    updateString += key + " =";
-    updateString += updateClaimInfo[key] + " ";
+    updateString += key + " = ";
+    updateString += updateClaimInfo[key] + ", ";
   });
-  const queryString = `UPDATE insuranceClaims SET ${updateString}WHERE insuranceClaims.claimId = "${claimId}"`;
+  updateString = updateString.slice(0, -2);
+  const queryString = `UPDATE insuranceClaims SET ${updateString} WHERE insuranceClaims.claimId = "${claimId}"`;
+  console.log(queryString);
   const [rows, fields] = await connection.query(queryString);
   connection.release();
   return { rows, fields };
