@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
-import { DatePicker,Form, Input, Select, Space, Radio, Button as Btn , } from 'antd';
+import { DatePicker,Form, Input, Select, Space, Radio, Button as Btn , Checkbox } from 'antd';
 
 
 export const Button = ()=>{
@@ -29,8 +29,7 @@ export const Button = ()=>{
 
     const closeModal = ()=>setOpen(false)
 
-  //   const deleteClaims = async(id) =>{
-        
+  //   const deleteClaims = async(id) =>{   
   //     try{
   //        await axios.delete(`/api/${id}`,{
   //            data:{
@@ -51,6 +50,7 @@ export const Button = ()=>{
     const editInputs= (e)=>{
       
       console.log({claimAmount})
+      console.log({date})
     }
 
     const customStyles = {
@@ -110,29 +110,20 @@ export const Button = ()=>{
                 </div> */}
                 <Form.Item label="Date">
                  <Space direction="vertical" size={12}>
-                 {/* <Input value ={date} onChange={(e)=>{setDate(e.target.value)}}/> */}
-                  <DatePicker showTime onChange={onChange} onOk={onOk} />
-                    <RangePicker
-                      // showTime={{
-                      //   format: 'HH:mm',
-                      // }}
-                      format="YYYY-MM-DD HH:mm"
-                      onChange={onChange}
-                      onOk={onOk}
-                    />
+                  <DatePicker  onChange={(date, dateString) => setDate(dateString)} onOk={onOk} />
                 </Space>
                 </Form.Item>
-                <Form.Item label="Is this a follow up?" >
-                <Input 
-                type="checkbox" 
-                checked ={followUp}
-                value={followUp} 
-                onChange={(e)=>{setFollowUp(e.currentTarget.checked)}}
-                />
-                </Form.Item>
+                {/* <Form.Item label="Is this a follow up?" >
+                <Checkbox value={followUp}  onChange={onChange}>Checkbox</Checkbox>
+                </Form.Item> */}
+                {followUp&&
+                  <Form.Item label="Previous Claim ID">
+                  <Input value ={previousClaimId} tpye="number"placeholder="Previous Claim ID" onChange={(e)=>{setPreviousClaimId(e.target.value)}}/>
+                  </Form.Item>
+                }
                 <br/>
                 <Space wrap>
-                <input type = "submit" value = 'Save' className="btn btn-block"></input>
+                <input type = "submit" value = 'Update' className="btn btn-block"></input>
                 {/* <input type = "submit" value = 'Update' className="btn btn-block" onClick={(console.log('asda'))}/> */}
                 <button onClick={closeModal}>Close Modal</button>
                 </Space>
