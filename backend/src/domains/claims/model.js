@@ -7,13 +7,22 @@ const createClaims = async (claimsInfo) => {
   return { rows, fields };
 };
 
-const getClaims = async (employeeId) => {
+const getGeneralClaims = async (employeeId) => {
   const connection = await pool.getConnection();
   const [rows, fields] = await connection.query(
-    `SELECT * 
+    `SELECT ClaimID, ExpenseDate, Status
 FROM (User JOIN insurancePolicies ON User.EmployeeID = insurancePolicies.EmployeeId)
 	JOIN insuranceClaims on insurancePolicies.InsuranceID = insuranceClaims.InsuranceID
 WHERE User.EmployeeID = "${employeeId}"`
+  );
+  connection.release();
+  return { rows, fields };
+};
+
+const getSpecificClaims = async (claimId) => {
+  const connection = await pool.getConnection();
+  const [rows, fields] = await connection.query(
+    `SELECT * FROM insuranceClaims WHERE insuranceClaims.claimId = "${claimId}"`
   );
   connection.release();
   return { rows, fields };
@@ -35,7 +44,8 @@ const deleteClaims = async (claimsId) => {
 
 module.exports = {
   createClaims,
-  getClaims,
+  getGeneralClaims,
+  getSpecificClaims,
   updateClaims,
   deleteClaims,
 };

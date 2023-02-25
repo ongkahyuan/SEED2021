@@ -2,7 +2,8 @@ const { Router } = require("express");
 
 const {
   createUserClaims,
-  getUserClaims,
+  getUserGeneralClaims,
+  getUserSpecificClaims,
   updateUserClaim,
   deleteUserClaims,
 } = require("./controller");
@@ -10,7 +11,8 @@ const {
 const router = Router();
 
 router.post("/claims", createUserClaims);
-router.get("/claims", getUserClaims);
+router.get("/claims", getUserGeneralClaims);
+router.get("/claims/:claimId", getUserSpecificClaims);
 router.patch("/claims", updateUserClaim);
 router.delete("/claims", deleteUserClaims);
 

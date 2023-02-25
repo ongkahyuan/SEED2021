@@ -1,6 +1,7 @@
 const {
   createClaims,
-  getClaims,
+  getGeneralClaims,
+  getSpecificClaims,
   updateClaims,
   deleteClaims,
 } = require("./model");
@@ -25,13 +26,30 @@ const createUserClaims = async (req, res) => {
   }
 };
 
-const getUserClaims = async (req, res) => {
+const getUserGeneralClaims = async (req, res) => {
   try {
     const employeeId = "58001001"; // Get employeeId from req
-    const { rows, fields } = await getClaims(employeeId);
+    const { rows, fields } = await getGeneralClaims(employeeId);
     return res.json({
       message: "Successfully retrieve user claims",
-      data: { rows, fields },
+      data: rows,
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(404).json({
+      message: e,
+      data: {},
+    });
+  }
+};
+
+const getUserSpecificClaims = async (req, res) => {
+  try {
+    const claimId = req.params["claimId"];
+    const { rows, fields } = await getSpecificClaims(claimId);
+    return res.json({
+      message: "Successfully retrieve user claims",
+      data: rows,
     });
   } catch (e) {
     console.log(e);
@@ -48,10 +66,7 @@ const updateUserClaim = async (req, res) => {
     const { rows, fields } = await updateClaims(updateClaimInfo);
     return res.json({
       message: "Successfully updated user claims",
-      data: {
-        rows,
-        fields,
-      },
+      data: rows,
     });
   } catch (e) {
     console.log(e);
@@ -80,7 +95,8 @@ const deleteUserClaims = async (req, res) => {
 
 module.exports = {
   createUserClaims,
-  getUserClaims,
+  getUserGeneralClaims,
+  getUserSpecificClaims,
   updateUserClaim,
   deleteUserClaims,
 };
