@@ -6,6 +6,7 @@ const app = require('express')();
 const cors = require('cors');
 const bodyParser = require('express').json;
 const homeRoute = require('./domains/home/routes')
+require("./config/authenticate")
 
 // Handle JSON payload
 app.use(express.json());
@@ -17,10 +18,10 @@ app.use(bodyParser());
 
 
 //Register Routes
-app.use("/api/v1/home",homeRoute);
+app.use("/api/v1/home", homeRoute);
 
 //Display that express server is running at root path
-app.get('/',(req,res)=> {
+app.get('/', (req, res) => {
     res.send('Express Server Running')
 });
 
