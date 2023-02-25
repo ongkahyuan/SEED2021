@@ -23,11 +23,12 @@ router.post('/login',
                         async (error) => {
                             if (error) return next(error);
                             const userBody = {
-                                "EmployeeID": user.id,
-                                "FirstName": user.FirstName,
-                                "LastName": user.LastName,
-                                "Age": user.age
+                                "EmployeeID": user[0].EmployeeID,
+                                "FirstName": user[0].FirstName,
+                                "LastName": user[0].LastName,
+                                "Age": user[0].Age
                             }
+                            console.log("User Body", userBody)
                             const token = jwt.sign(userBody, "secret") //TODO:  replace this with the env secret
                             return res.json({ token })
                         }

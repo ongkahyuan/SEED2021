@@ -47,9 +47,15 @@ passport.use(
         },
         async (token, done) => {
             // find user by ID
+            const userVerify = await model.getUserByID(token.EmployeeID)
             try {
+                if (userVerify) {
+                    done(null, userVerify[0])
+                }
+                else {
+                    done("User not verified", null)
+                }
                 // if user is valid, return the user object
-                done(null, user)
             } catch (error) { done(error) }
         }
     )

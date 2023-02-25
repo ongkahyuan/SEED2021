@@ -10,6 +10,7 @@ const urlenclosed = require('express').urlencoded;
 const homeRoute = require('./domains/home/routes')
 const userRoute = require('./domains/user/routes')
 const claimsRouter = require("./domains/claims/routes");
+const passport = require('passport');
 require("./config/authenticate")
 
 
@@ -26,7 +27,7 @@ app.use(urlenclosed({ extended: false }));
 
 app.use("/api/v1/home", homeRoute);
 app.use("/api/v1/user", userRoute);
-app.use("/api/v1/claim",claimsRouter);
+app.use("/api/v1/claim", passport.authenticate('jwt', { session: false }), claimsRouter);
 //Display that express server is running at root path
 app.get('/', (req, res) => {
     res.send('Express Server Running')
