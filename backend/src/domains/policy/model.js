@@ -12,4 +12,15 @@ module.exports = {
             throw(error)
           }
     },
+    getPoliciesByPolicyID: async function(id){
+      try {
+          const connection = await pool.getConnection();
+          const [rows, fields] = await connection.query('SELECT * FROM InsuranceData.InsurancePolicies WHERE InsuranceID = ?',
+          [id]);
+          connection.release();
+          return rows
+        } catch (error) {
+          throw(error)
+        }
+  },
 }

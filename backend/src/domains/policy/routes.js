@@ -4,6 +4,7 @@ const router = Router();
 const controller = require('./controller')
 
 
-router.get('/policybyid',controller.getAllPolicyByEmployeeID);
+router.get('/policybyemployeeid',controller.getAllPolicyByEmployeeID);
+router.get('/id',controller.getAllPolicyByPolicyID);
 
 module.exports = router;
