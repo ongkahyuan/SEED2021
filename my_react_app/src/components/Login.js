@@ -6,29 +6,31 @@ import {ClaimTable} from  './claims'
 import {PolicyTable} from './policy'
 import {EditDeleteButton} from './Button'
 import {AddButton} from './AddButton'
+import {postRequest} from '../api/api'
 export const Login= () => {
     const navigate = useNavigate()
     const signIn = useSignIn()
 
     const HandleSubmitFunction = async (target) =>{
-        signIn({
-            token:"12312321",
-            expiresIn:60,
-            tokenType:"Bearer"
-        })
-        navigate("/")        
-        // await postRequest("/login",target).then(
-        //     (response) => {
-        //         signIn({
-        //             token:response.data.token,
-        //             expiresIn:60,
-        //             tokenType:"Bearer",
-            
-        //         })
-        //     }
-        // ).catch((err) => {
-        //     console.log(err)
+        // signIn({
+        //     token:"12312321",
+        //     expiresIn:60,
+        //     tokenType:"Bearer"
         // })
+        // navigate("/")        
+        await postRequest("/user/login",target).then(
+            (response) => {
+                signIn({
+                    token:response.data.token,
+                    expiresIn:60,
+                    tokenType:"Bearer",
+            
+                })
+                navigate("/")   
+            }
+        ).catch((err) => {
+            console.log(err)
+        })
     } 
 
     return (
@@ -44,7 +46,7 @@ export const Login= () => {
             >
                 <Form.Item
                 label="Employee ID"
-                name="username"
+                name="EmployeeID"
                 rules={[{ required: true, message: 'Please input your Employee ID!' }]}
                 >
                 <Input />
@@ -52,7 +54,7 @@ export const Login= () => {
 
                 <Form.Item
                 label="Password"
-                name="password"
+                name="Password"
                 rules={[{ required: true, message: 'Please input your password!' }]}
                 >
                 <Input.Password />

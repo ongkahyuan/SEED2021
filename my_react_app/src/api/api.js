@@ -2,11 +2,11 @@ import axios from "axios";
 import { useAuthHeader } from "react-auth-kit";
 
 const api_client = axios.create({
-    baseURL:"http://localhost:8000/api"
+    baseURL:"http://localhost:8080/api/v1"
 })
 
 const private_api_client = axios.create({
-    baseURL:"http://localhost:8000/api",
+    baseURL:"http://localhost:8080/api/v1",
     withCredentials:true
 })
 
