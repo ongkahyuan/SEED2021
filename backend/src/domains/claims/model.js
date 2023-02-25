@@ -33,7 +33,11 @@ const updateClaims = async (claimId, updateClaimInfo) => {
   let updateString = "";
   Object.keys(updateClaimInfo).forEach((key) => {
     updateString += key + " = ";
-    updateString += updateClaimInfo[key] + ", ";
+    if (!isNaN(updateClaimInfo[key])) {
+      updateString += `${updateClaimInfo[key]}, `;
+    } else {
+      updateString += `"${updateClaimInfo[key]}", `;
+    }
   });
   updateString = updateString.slice(0, -2);
   const queryString = `UPDATE insuranceClaims SET ${updateString} WHERE insuranceClaims.claimId = "${claimId}"`;
