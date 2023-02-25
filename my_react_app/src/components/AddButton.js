@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import { DatePicker, Form, Input, Select, Space, Radio, Button as Btn , } from 'antd';
 const regex = /[^\d]/g;
-export const AddButton = ()=>{
+export const AddButton = ({text})=>{
     const [open, setOpen] = useState(false);
     const [reciept, setReciept] = useState('')
     const [date, setDate] = useState('')

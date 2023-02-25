@@ -6,7 +6,8 @@ import { AddButton } from './components/AddButton';
 function App() {
   return (
     <div className="App">
-      <Button/>
+      <Button text={"Delete"}/>
+      <Button text={"Edit"}/>
       <AddButton/>
     </div>
   );

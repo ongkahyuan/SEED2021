@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import { DatePicker,Form, Input, Select, Space, Radio, Button as Btn , Checkbox } from 'antd';
 const regex = /[^\d]/g;
 
-export const Button = ()=>{
+export const Button = ({text})=>{
     
     // For Delete, Edit or Add
     const [type, setType] = useState('')
@@ -19,7 +19,7 @@ export const Button = ()=>{
     const { RangePicker } = DatePicker;
     
     useEffect(() => {
-      setType('Edit')
+      setType(text)
     }, [])
     
     useEffect(()=>{
