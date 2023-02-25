@@ -1,8 +1,12 @@
-const {Router} = require('express')
+const { Router } = require("express");
+
+const { getUserClaims } = require("./controller");
 
 const router = Router();
-const controller = require('./controller')
 
-
+// router.post("/claims", null);
+router.get("/claims", getUserClaims);
+// router.patch("/claims", null);
+// router.delete("/claims", null);
 
 module.exports = router;

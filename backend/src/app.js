@@ -1,11 +1,12 @@
 //database
 //require('./config/db');
-require('dotenv').config();
-const express = require('express')
-const app = require('express')();
-const cors = require('cors');
-const bodyParser = require('express').json;
-const homeRoute = require('./domains/home/routes')
+require("dotenv").config();
+const express = require("express");
+const app = require("express")();
+const cors = require("cors");
+const bodyParser = require("express").json;
+// const homeRoute = require("./domains/home/routes");
+const claimsRouter = require("./domains/claims/routes");
 
 // Handle JSON payload
 app.use(express.json());
@@ -14,14 +15,13 @@ app.use(cors());
 //Accept POST form data
 app.use(bodyParser());
 
-
-
 //Register Routes
-app.use("/api/v1/home",homeRoute);
+// app.use("/api/v1/home", homeRoute);
+app.use(claimsRouter);
 
 //Display that express server is running at root path
-app.get('/',(req,res)=> {
-    res.send('Express Server Running')
+app.get("/", (req, res) => {
+  res.send("Express Server Running");
 });
 
 module.exports = app;
