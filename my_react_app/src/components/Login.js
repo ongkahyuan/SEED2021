@@ -80,10 +80,6 @@ export const Login= () => {
                 </Button>
                 </Form.Item>
             </Form>
-
-            <EditDeleteButton text={"Delete"}/>
-            <EditDeleteButton text={"Edit"}/>
-            <AddButton/>
         </div>
     );
 }
