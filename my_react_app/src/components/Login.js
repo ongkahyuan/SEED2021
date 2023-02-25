@@ -34,12 +34,26 @@ export const Login= () => {
     } 
 
     return (
-        <div>
+        <div style={{
+            backgroundImage: `url('https://financialhorse.com/wp-content/uploads/2022/02/Splitter_DBS7-scaled.jpg.webp')`,
+            backgroundSize: 'cover',
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
+                style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                    padding: '40px',
+                    borderRadius: '10px',
+                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+                    width: '400px',
+                    textAlign: 'center',
+                  }}
                 initialValues={{ remember: true }}
                 autoComplete="off"
                 onFinish={HandleSubmitFunction}
