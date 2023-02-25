@@ -1,10 +1,11 @@
 import './App.css';
 import ClaimTable from './components/claims';
+import PolicyTable from './components/policy';
 
 function App() {
   return (
     <div className="App">
-      <ClaimTable />
+      <PolicyTable />
     </div>
   );
 }
