@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "antd": "^5.2.2",
+    "axios": "^1.3.4",
+    "react-auth-kit": "^2.7.1",
+    "react-router-dom": "^6.8.1"
+  }
+}
