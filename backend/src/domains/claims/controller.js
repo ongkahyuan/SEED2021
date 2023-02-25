@@ -1,3 +1,4 @@
+const { checkClaimAuthorisation } = require("../../config/authenticate");
 const {
   createClaims,
   getGeneralClaims,

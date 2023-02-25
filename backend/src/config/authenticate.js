@@ -3,8 +3,9 @@ const passport = require("passport")
 const localStrategy = require("passport-local").Strategy
 const jwtStrategy = require("passport-jwt")
 const controller = require('../domains/home/controller')
-const model = require("../domains/user/model")
-const bcrypt = require('bcrypt')
+const userModel = require("../domains/user/model")
+const policyModel = require("../domains/policy/model")
+const claimModel = require("../domains/claims/model")
 
 // Passport Strategies
 
@@ -18,7 +19,7 @@ passport.use(
         async (username, password, done) => {
             try {
                 // find a user based on the employeeID
-                const userVerify = await model.getUserByID(username)
+                const userVerify = await userModel.getUserByID(username)
                 console.log(userVerify[0])
                 // validate = bcrypt.compare(password, userVerify.password)
                 if (password == userVerify[0].Password) {
@@ -47,7 +48,7 @@ passport.use(
         },
         async (token, done) => {
             // find user by ID
-            const userVerify = await model.getUserByID(token.EmployeeID)
+            const userVerify = await userModel.getUserByID(token.EmployeeID)
             try {
                 if (userVerify) {
                     done(null, userVerify[0])
@@ -60,3 +61,28 @@ passport.use(
         }
     )
 )
+
+// User based authentication
+
+async function checkPolicyAuthorisation(policyID, user) {
+    const policy = await policyModel.getPoliciesByPolicyID(Number(policyID))
+    if (policy[0].EmployeeID == user.EmployeeID) {
+        return true
+    } return false
+}
+
+async function checkClaimAuthorisation(claimID, user) {
+    console.log("ClaimID: ", claimID)
+    const { claim, fields } = await claimModel.getSpecificClaims(claimID)
+    console.log(claim)
+    const insuranceID = claim[0].InsuranceID;
+    const policy = await policyModel.getPoliciesByPolicyID(policyID)
+    if (policy[0].EmployeeID == user.EmployeeID) {
+        return true
+    } return false
+}
+
+module.exports = {
+    checkClaimAuthorisation,
+    checkPolicyAuthorisation
+}

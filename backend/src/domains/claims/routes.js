@@ -1,11 +1,11 @@
 const { Router } = require("express");
 
 const {
-  createUserClaims,
-  getUserGeneralClaims,
-  getUserSpecificClaims,
-  updateUserClaim,
-  deleteUserClaims,
+    createUserClaims,
+    getUserGeneralClaims,
+    getUserSpecificClaims,
+    updateUserClaim,
+    deleteUserClaims,
 } = require("./controller");
 
 const router = Router();
