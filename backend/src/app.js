@@ -1,5 +1,6 @@
 //database
 //require('./config/db');
+
 require('dotenv').config();
 const express = require('express')
 const app = require('express')();
@@ -8,7 +9,10 @@ const bodyParser = require('express').json;
 const urlenclosed = require('express').urlencoded;
 const homeRoute = require('./domains/home/routes')
 const userRoute = require('./domains/user/routes')
+const claimsRouter = require("./domains/claims/routes");
 require("./config/authenticate")
+
+
 
 // Handle JSON payload
 app.use(express.json());
@@ -18,12 +22,11 @@ app.use(cors());
 app.use(bodyParser());
 app.use(urlenclosed({ extended: false }));
 
-
-
 //Register Routes
+
 app.use("/api/v1/home", homeRoute);
 app.use("/api/v1/user", userRoute);
-
+app.use("/api/v1/claim",claimsRouter);
 //Display that express server is running at root path
 app.get('/', (req, res) => {
     res.send('Express Server Running')

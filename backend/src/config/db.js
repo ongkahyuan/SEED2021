@@ -1,4 +1,4 @@
-const mysql = require('mysql2/promise');
+const mysql = require("mysql2/promise");
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -9,7 +9,6 @@ const pool = mysql.createPool({
   waitForConnections: true,
   queueLimit: 0,
 });
-
 
 async function testDatabaseConnection() {
   try {
@@ -24,6 +23,5 @@ async function testDatabaseConnection() {
 }
 
 testDatabaseConnection();
-
 
 module.exports = pool;
