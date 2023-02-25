@@ -1,10 +1,32 @@
 const pool = require("../../config/db");
 
-const createClaims = async (claimsInfo) => {
-  const connection = await pool.getConnection();
-  const [rows, fields] = await connection.query();
-  connection.release();
-  return { rows, fields };
+const createClaims = async (claimsInfo,maxClaimValue) => {
+  try{
+    const connection = await pool.getConnection();
+    const [rows, fields] = await connection.query(` INSERT INTO InsuranceData.InsuranceClaims (ClaimID, InsuranceID, FirstName, LastName, ExpenseDate, Amount, Purpose, FollowUp, 
+    PreviousClaimID, Status, LastEditedClaimDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,[maxClaimValue,claimsInfo['insuranceID'],
+    claimsInfo['firstName'],claimsInfo['lastName'],claimsInfo['expenseDate'],claimsInfo['claimAmt'],claimsInfo['purpose'],claimsInfo['followUp'],claimsInfo['previousClaim'],
+    claimsInfo['status'],claimsInfo['lastEditedClaimDate']]);
+    connection.release();
+    return { rows, fields };
+  }
+  catch(error){
+    throw error;
+  }
+
+};
+
+const getLargestClaim = async () => {
+  try{
+    const connection = await pool.getConnection();
+    const [rows, fields] = await connection.query(` SELECT MAX(ClaimID) AS LargestClaimID FROM InsuranceClaims;`);
+    connection.release();
+    return { rows, fields };
+  }
+  catch(error){
+    throw error;
+  }
+
 };
 
 const getGeneralClaims = async (employeeId) => {
@@ -32,10 +54,16 @@ const updateClaims = async (claimId, updateClaimInfo) => {
   const connection = await pool.getConnection();
   let updateString = "";
   Object.keys(updateClaimInfo).forEach((key) => {
-    updateString += key + " =";
-    updateString += updateClaimInfo[key] + " ";
+    updateString += key + " = ";
+    if (!isNaN(updateClaimInfo[key])) {
+      updateString += `${updateClaimInfo[key]}, `;
+    } else {
+      updateString += `"${updateClaimInfo[key]}", `;
+    }
   });
-  const queryString = `UPDATE insuranceClaims SET ${updateString}WHERE insuranceClaims.claimId = "${claimId}"`;
+  updateString = updateString.slice(0, -2);
+  const queryString = `UPDATE insuranceClaims SET ${updateString} WHERE insuranceClaims.claimId = "${claimId}"`;
+  console.log(queryString);
   const [rows, fields] = await connection.query(queryString);
   connection.release();
   return { rows, fields };
@@ -56,4 +84,5 @@ module.exports = {
   getSpecificClaims,
   updateClaims,
   deleteClaims,
+  getLargestClaim
 };
