@@ -8,6 +8,7 @@ const cors = require('cors');
 const bodyParser = require('express').json;
 const urlenclosed = require('express').urlencoded;
 const homeRoute = require('./domains/home/routes')
+const policyRoute = require('./domains/policy/routes')
 const userRoute = require('./domains/user/routes')
 const claimsRouter = require("./domains/claims/routes");
 const passport = require('passport');
@@ -25,6 +26,7 @@ app.use(urlenclosed({ extended: false }));
 
 //Register Routes
 
+app.use("/api/v1/policy",policyRoute)
 app.use("/api/v1/home", homeRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/claim", passport.authenticate('jwt', { session: false }), claimsRouter);
