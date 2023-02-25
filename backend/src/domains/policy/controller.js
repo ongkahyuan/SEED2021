@@ -2,7 +2,8 @@
 const {getPoliciesByEmployeeID,getPoliciesByPolicyID} = require('./model');
 
 const getAllPolicyByEmployeeID = async (req, res) => {
-    let id = req.get('EmployeeID');
+    const user = req.user; //{EmployeeID: }
+    let id = user.EmployeeID
     try {
         let rows = await getPoliciesByEmployeeID(id);
         res.status(200).send(rows)
@@ -14,6 +15,7 @@ const getAllPolicyByEmployeeID = async (req, res) => {
 };
 
 const getAllPolicyByPolicyID = async (req, res) => {
+    const user = req.user; //{EmployeeID: }
     let id = req.get('PolicyID');
     try {
         let rows = await getPoliciesByPolicyID(id);

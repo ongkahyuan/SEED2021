@@ -26,7 +26,7 @@ app.use(urlenclosed({ extended: false }));
 
 //Register Routes
 
-app.use("/api/v1/policy",policyRoute)
+app.use("/api/v1/policy", passport.authenticate('jwt', { session: false }),policyRoute)
 app.use("/api/v1/home", homeRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/claim", passport.authenticate('jwt', { session: false }), claimsRouter);
