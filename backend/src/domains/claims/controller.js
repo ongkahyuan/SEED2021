@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 const {
   createClaims,
   getGeneralClaims,
@@ -63,7 +65,11 @@ const getUserSpecificClaims = async (req, res) => {
 const updateUserClaim = async (req, res) => {
   try {
     const { claimId, ...updateClaimInfo } = req.body;
-    const { rows, fields } = await updateClaims(claimId, updateClaimInfo);
+    const newUpdateClaimInfo = {
+      ...updateClaimInfo,
+      LastEditedClaimDate: `${moment().format().toString()}`,
+    };
+    const { rows, fields } = await updateClaims(claimId, newUpdateClaimInfo);
     return res.json({
       message: "Successfully updated user claims",
       data: rows,
