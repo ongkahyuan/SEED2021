@@ -7,6 +7,7 @@ import NotFound from './components/NotFound';
 function App() {
   return (
     <>
+
     <Routes>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/" element={<RequireAuth loginPath='/login'><>Hello</></RequireAuth>}/>      

@@ -2,7 +2,10 @@ import React from 'react';
 import { useSignIn } from 'react-auth-kit';
 import { Form,Button,Input } from "antd"
 import { useNavigate } from 'react-router-dom';
-
+import {ClaimTable} from  './claims'
+import {PolicyTable} from './policy'
+import {EditDeleteButton} from './Button'
+import {AddButton} from './AddButton'
 export const Login= () => {
     const navigate = useNavigate()
     const signIn = useSignIn()
@@ -61,6 +64,12 @@ export const Login= () => {
                 </Button>
                 </Form.Item>
             </Form>
+
+            <ClaimTable/>
+            <PolicyTable/>
+            <EditDeleteButton text={"Delete"}/>
+            <EditDeleteButton text={"Edit"}/>
+            <AddButton/>
         </div>
     );
 }

@@ -149,11 +149,11 @@ const data = [
        }
 ];
 
-const PolicyTable = () => {
+export const PolicyTable = () => {
     return (
         <Table columns={columns} dataSource={data} style={{margin: '0 auto',
         padding: '40px',}}/>
     );
 };
 
-export default PolicyTable;
+// export default PolicyTable;

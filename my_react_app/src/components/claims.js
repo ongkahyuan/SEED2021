@@ -1,5 +1,5 @@
 import { Table, Space, Popconfirm, Button } from 'antd';
-import {moment} from 'moment';
+// import {moment} from 'moment';
 
 
 const columns = [
@@ -268,11 +268,11 @@ const data = [
     }
 ];
 
-const ClaimTable = () => {
+export const ClaimTable = () => {
     return (
         <Table columns={columns} dataSource={data} style={{margin: '0 auto',
         padding: '40px',}}/>
     );
 };
 
-export default ClaimTable;
+// export default ClaimTable;
