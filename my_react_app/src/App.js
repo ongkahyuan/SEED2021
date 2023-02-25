@@ -1,15 +1,19 @@
 import './App.css';
-import { Button } from './components/Button';
-import {BrowserRouter as Router, Routes, Route, Link, useNavigate} from 'react-router-dom'
-import { AddButton } from './components/AddButton';
+import { Route, Routes } from 'react-router-dom';
+import { RequireAuth } from 'react-auth-kit';
+import { Login } from './components/Login';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <Button text={"Delete"}/>
-      <Button text={"Edit"}/>
-      <AddButton/>
-    </div>
+    <>
+    <Routes>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/" element={<RequireAuth loginPath='/login'><>Hello</></RequireAuth>}/>      
+      <Route path="/claims" element={<RequireAuth loginPath='/login'><>Claims</></RequireAuth>}/>
+      <Route path="/*" element={<NotFound/>}></Route>
+    </Routes>
+    </>
   );
 }
 
