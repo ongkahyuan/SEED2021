@@ -12,25 +12,25 @@ export const Login= () => {
     const signIn = useSignIn()
 
     const HandleSubmitFunction = async (target) =>{
-        // signIn({
-        //     token:"12312321",
-        //     expiresIn:60,
-        //     tokenType:"Bearer"
-        // })
-        // navigate("/")        
-        await postRequest("/user/login",target).then(
-            (response) => {
-                signIn({
-                    token:response.data.token,
-                    expiresIn:60,
-                    tokenType:"Bearer",
-            
-                })
-                navigate("/")   
-            }
-        ).catch((err) => {
-            console.log(err)
+        signIn({
+            token:"12312321",
+            expiresIn:60,
+            tokenType:"Bearer"
         })
+        navigate("/")        
+        // await postRequest("/user/login",target).then(
+        //     (response) => {
+        //         signIn({
+        //             token:response.data.token,
+        //             expiresIn:60,
+        //             tokenType:"Bearer",
+            
+        //         })
+        //         navigate("/")   
+        //     }
+        // ).catch((err) => {
+        //     console.log(err)
+        // })
     } 
 
     return (
@@ -67,8 +67,6 @@ export const Login= () => {
                 </Form.Item>
             </Form>
 
-           
-            <PolicyTable/>
             <EditDeleteButton text={"Delete"}/>
             <EditDeleteButton text={"Edit"}/>
             <AddButton/>
