@@ -1,6 +1,8 @@
 import { Table, Space, Popconfirm, Button } from 'antd';
 import { useEffect, useState } from 'react';
 import { getRequestProtected } from '../api/api';
+import { AddButton } from './AddButton';
+import { EditDeleteButton } from './Button';
 
 // import {moment} from 'moment';
 
@@ -282,7 +284,7 @@ export const ClaimTable = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a> Edit </a>
+                    {/* <a> Edit </a>
                     <Popconfirm
                         title="Are you sure you want to delete this user?"
                     // onConfirm={() => handleDelete(record)}
@@ -290,17 +292,22 @@ export const ClaimTable = () => {
                         <Button type="link" danger>
                             Delete
                         </Button>
-                    </Popconfirm>
+                    </Popconfirm> */}
+                    <EditDeleteButton text={"Delete"}/>
+                    <EditDeleteButton text={"Edit"}/>
                 </Space>
             ),
         },
 
     ];
     return (
+        <>
+        <AddButton/>
         <Table columns={columns} dataSource={data} style={{
             margin: '0 auto',
             padding: '40px',
         }} />
+        </>
     );
 };
 
