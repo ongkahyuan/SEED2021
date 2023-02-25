@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Space, Table } from 'antd';
+import { Button, Space, Table } from 'antd';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function claims() {
     const [data, setData] = useState([]);
@@ -28,6 +29,10 @@ function claims() {
         }
     };
 
+    const handleEdit = () => {
+        let navigate = useNavigate();
+        navigate('/policy/:id');
+    }
 
     const columns = [
         {
@@ -49,12 +54,15 @@ function claims() {
             sortDirections: ['descend'],
         },
         {
-            title: '',
+            title: 'Operation',
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a>Edit</a>
-                data.length >= 1 ? (
+                    <Button
+                        color="primary" className="px-4"
+                        onClick={handleEdit}>
+                        Edit
+                    </Button>
                     <Popconfirm
                         title="Are you sure you want to delete this claim?"
                         onConfirm={() => handleDelete(record)}
@@ -68,8 +76,14 @@ function claims() {
             ),
         },
     ];
-
-},
-];
-const claims = () => <Table columns={columns} dataSource={data} />;
-export default App;
+    return (
+        <div>
+            <Table
+                dataSource={data}
+                columns={columns}
+                style={{ margin: '0 auto', padding: '40px' }}
+            />
+        </div>
+    );
+}
+export default claims;
