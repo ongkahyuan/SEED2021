@@ -1,25 +1,32 @@
 import React from 'react';
 import { useSignIn } from 'react-auth-kit';
-import { postRequest } from '../api/api';
 import { Form,Button,Input } from "antd"
+import { useNavigate } from 'react-router-dom';
 
-export function Login() {
-    const SignIn = useSignIn()
+export const Login= () => {
+    const navigate = useNavigate()
+    const signIn = useSignIn()
 
-    async function HandleSubmitFunction(target){
-        await postRequest("/login",target).then(
-            (response) => {
-                SignIn({
-                    token:response.data.access_token,
-                    expiresIn:60,
-                    tokenType:"Bearer",
-                    authState:response.data.detail.subject,
-            })
-            }
-        ).catch((err) => {
-            console.log(err)
+    const HandleSubmitFunction = async (target) =>{
+        signIn({
+            token:"12312321",
+            expiresIn:60,
+            tokenType:"Bearer"
         })
-    }
+        navigate("/")        
+        // await postRequest("/login",target).then(
+        //     (response) => {
+        //         signIn({
+        //             token:response.data.token,
+        //             expiresIn:60,
+        //             tokenType:"Bearer",
+            
+        //         })
+        //     }
+        // ).catch((err) => {
+        //     console.log(err)
+        // })
+    } 
 
     return (
         <div>
